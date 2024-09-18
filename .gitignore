@@ -1,0 +1,103 @@
+# Sistema de arquivos
+.DS_Store
+Thumbs.db
+
+# Diretórios de build e dependências
+node_modules/
+dist/
+build/
+out/
+vendor/
+
+# Arquivos de configuração do IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Arquivos de logs e temporários
+*.log
+*.tmp
+*.bak
+
+# Ambiente virtual (Python)
+venv/
+env/
+*.env
+*.env.*
+
+# Arquivos de cache e de compilação
+*.pid
+*.seed
+*.pyc
+*.pyo
+*.class
+*.jar
+*.war
+*.ear
+
+# Diretórios e arquivos específicos do Flask
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+instance/
+*.flaskenv
+*.pyc
+__pycache__/
+*.coverage
+
+# Diretórios e arquivos específicos do Restx
+*.restx/
+*.swagger/
+swagger.json
+
+# Arquivos de configuração local
+.env.local
+.env.*.local
+
+# Arquivos de banco de dados
+*.sqlite
+*.db
+
+# Arquivos de segurança
+*.pem
+*.key
+*.crt
+
+# Configurações específicas do editor
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
+
+# Outros arquivos específicos
+*.spec.js
+*.snap
+*.orig
+*.rej
+*.diff
+*.patch
+*.sw?
+*.swo
+
+# Arquivos de cache do sistema
+*.cache
+.cache/
+*.temp
+*.tmp
+
+# Arquivos de documentação gerados
+*.pdf
+*.docx
+
+# Arquivos e diretórios de backups
+backup/
+*.bak
+
+# Arquivos temporários do sistema
+*.swp
+*.swo
+.venv/Lib/site-packages/
+.venv
