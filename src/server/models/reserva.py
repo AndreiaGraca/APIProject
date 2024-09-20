@@ -1,7 +1,10 @@
 from datetime import date
+
+from flask import jsonify
 from src.server.models.room import room  # Certifique-se de que Room está no mesmo diretório ou caminho acessível
 from src.server.instance import server
-from flask_restx import Namespace, fields
+from flask_restx import fields
+import psycopg2
 
 reserva = server.api.model('Reserva', {
     'name': fields.String(required=True, description='Nome do cliente'),
@@ -24,6 +27,61 @@ reserva = server.api.model('Reserva', {
     'email': fields.String(required=True, description='Email do cliente'),
     'room': fields.Integer(required=True, description='Número do quarto')
 })
+
+
+def get_daily_reservations():
+    today = date.today()  # Obtém a data atual
+    
+    # Conexão com a base de dados PostgreSQL
+    try:
+        conn = psycopg2.connect(
+            dbname="postgres",  # Substitua pelo nome do seu banco
+            user="postgres",      # Substitua pelo seu usuário
+            password="andreia",    # Substitua pela sua senha
+            host="localhost",        # Substitua se estiver em outro host
+            port="5432"              # Porta padrão do PostgreSQL
+        )
+        
+        cursor = conn.cursor()
+        
+        # Query para buscar as reservas do dia
+        query = "SELECT n_room, reserva_id,name, type, number_persons, n_beds,check_in_made, check_out_made FROM reserve order by n_room"
+        cursor.execute(query, (today,))
+        
+        # Busca todas as reservas do dia
+        reservations = cursor.fetchall()
+        
+        # Fecha o cursor e a conexão
+        cursor.close()
+        conn.close()
+        
+        return reservations  # Retorna a lista de reservas
+    except Exception as e:
+        print(f"Erro ao conectar ao PostgreSQL: {e}")
+        return []
+
+def get_reserva_by_id(reserva_id):
+    try:
+        conn = psycopg2.connect(
+            dbname="postgres",
+            user="postgres",
+            password="andreia",
+            host="localhost",
+            port="5432"
+        )
+        
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM reserve WHERE reserva_id = %s", (reserva_id,))
+        reserva = cursor.fetchone()
+        
+        cursor.close()
+        conn.close()
+
+        return reserva
+    except Exception as e:
+        print(f"Erro ao conectar ao PostgreSQL: {e}")
+        return None
+
 
 class Reservation:
     def __init__(self, name: str, nif: int, nights: int, check_in: date, check_out: date, number_persons: int, room_type: str, adults: int, children: int, 

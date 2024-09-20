@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 from flask_restx import Api, Namespace, Resource
 from src.server.instance import server
 from src.server.models.hotel import hotel
+from src.server.models.reserva import get_daily_reservations, get_reserva_by_id
+
 app, api = server.app, server.api
 
 quartos_db = [
@@ -24,6 +26,7 @@ def index():
 
 hotel_ns = server.hotel_ns
 
+#aprender Swagger
 @hotel_ns.route('/hotel')
 class HotelList(Resource):
     @hotel_ns.marshal_list_with(hotel)
@@ -74,3 +77,20 @@ class HotelList(Resource):
                 quartos_db[i].update(data)
                 return quartos_db[i], 200
         return {'message': 'Quarto não encontrado'}, 404
+    
+
+#retornar todas as reservas que se encontram na base de dados
+    @app.route('/api/reservas-dia', methods=['GET'])
+    def reservas_dia():
+        reservas = get_daily_reservations()
+        return jsonify(reservas)
+    
+
+
+    @app.route('/api/reserva/<int:reserva_id>', methods=['GET'])
+    def reserva(reserva_id):
+        reserva = get_reserva_by_id(reserva_id)
+        if reserva:
+            return jsonify(reserva)
+        else:
+            return jsonify({'error': 'Reserva não encontrada'}), 404

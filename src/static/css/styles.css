@@ -1,0 +1,270 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff7f7;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+.container {
+    max-width: 800px;
+    transition: max-width 0.5s ease-in-out; /* Transição suave */
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+    background-color: rgba(247, 247, 247, 0.6); /* Fundo cinzento com opacidade  rgba(249, 234, 209, 0.5);*/
+    border-radius: 5px; /* Border arredondada */
+}
+
+h1 {
+    color: #4f2502;
+    font-size: 3em;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h3{
+    font-weight: bold;
+}
+p {
+    color: #000000;
+    font-size: 1.1em;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    background-image: url('https://5.imimg.com/data5/SELLER/Default/2023/1/MT/HB/HZ/3028275/facade02-view01.jpg');
+    background-size: cover;
+    background-position: center;
+    transition: opacity 1s ease-in-out;
+}
+
+.image-part {
+    width: 50%;
+    height: 100%;
+    background-image: url('https://5.imimg.com/data5/SELLER/Default/2023/1/MT/HB/HZ/3028275/facade02-view01.jpg');
+    background-size: 200% 100%; 
+    transition: transform 1s ease-in-out;
+}
+
+.image-part.left {
+    background-position: left center; 
+    transform: translateX(0);
+}
+
+.image-part.right {
+    background-position: right center;
+    transform: translateX(0);
+}
+
+.image-container.open .image-part.left {
+    transform: translateX(-100%);
+}
+
+.image-container.open .image-part.right {
+    transform: translateX(100%);
+}
+
+.image-container.open {
+    opacity: 0.5;
+}
+
+.text-container {
+    display: none; /* Inicialmente o texto está oculto */
+    z-index: 2;
+    position: relative;
+    height: 100vh;
+    text-align: center;
+}
+
+.text-container.show {
+    display: flex; /* Quando ativada, é flex para centralizar no centro  do ecrã */
+    justify-content: center;
+    align-items: center;
+}
+
+.img-fluid{
+    width: 190px;
+}
+
+.btn-brown {
+background-color: #6f4f28; /* Cor castanha */
+border-color: #6f4f28; 
+color: #fff; /* Cor do texto */
+}
+
+.btn-brown:hover {
+background-color: #8f6b4c; /* Cor mais escura para o hover */
+border-color: #8f6b4c; /* Cor da borda no hover */
+}
+
+#newButtonsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%; /* Altura total do container */
+    
+}
+
+#newButtonsContainer button {
+    margin: 10px 0; /* Espaço vertical entre os botões */
+    width: 44%;/* Largura dos botões */
+    background-color: #7b7974; /* #916e4c*/
+    border-color: #ac9d8b; 
+    color: #fff;
+    font-weight: bold;
+}
+
+#newButtonsContainer button:hover {
+    background-color: #a28e75; /* Cor mais clara ao passar o rato */
+}
+
+.reservations-container {
+    width: 100%; /* Largura inicial mais estreita */
+    height: auto;
+    max-height: 70vh;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out; 
+    text-align: center;
+}
+.reservations-container {
+    overflow-y: scroll; 
+    scrollbar-width: thin; 
+    scrollbar-color: #f0f0f0 transparent; 
+}
+
+.reservations-container::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de scroll */
+}
+
+.reservations-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.reservations-table th, .reservations-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center; 
+}
+.reservations-table th {
+    background-color: #f2f2f2;
+}
+
+.reservations-table td {
+    background-color: rgba(242, 242, 242, 0.58); /* Cinza claro com 58% de opacidade */
+}
+.container.expanded {
+    max-width: 1200px; /* Largura expandida */
+}
+
+.reservations-table tr:hover {
+    background-color: rgba(164, 162, 162, 0.58); /* Cinza claro com 58% de opacidade */
+}
+
+.modal {
+    display: none; /* Escondido por padrão */ /*para apresentar os detalhes da reserva*/
+    position: fixed; /* Fixo no ecrã */
+    z-index: 1000; /* Fica acima  dos outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* scroll se o conteúdo for maior que o ecrã */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    display: flex; /* Usar flexbox para centralizar */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+.modal-content {
+    background-color: #f4f5de; 
+    padding: 10px;
+    border: 1px solid #888;
+    width: 80%; 
+    max-width: 600px; /* Largura máxima do modal */
+    max-height: 80vh; /* Altura máxima do modal (80% da altura da janela) */
+    overflow-y: auto; /* Permite scroll vertical s*/
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra  */
+    border-radius: 8px; /* Bordas arredondadas */
+}
+
+/* Estilo do botão de fechar (X) */
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-columns {
+    display: flex; /* Layout flexbox para as colunas */
+    justify-content: space-between; /* Espaçamento entre colunas */
+    flex-wrap: wrap; /* Permite que as colunas passem para uma nova linha se necessário */
+    margin-top: 0px; /* Espaço acima das colunas */
+    gap: 80px; /* Aumentar o espaçamento entre colunas - 80px */
+}
+
+.modal-columns > div {
+    flex: 0 0 45%; /* Define a largura das colunas para 45% para que o gap funcione melhor */
+    box-sizing: border-box; /* Garantir que padding e borda sejam inclusos na largura total */
+    margin-bottom: 40px; /* Espaço entre as seções temáticas verticalmente */
+}
+/* Estilos para os títulos das seções (temas) */
+h3 {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 15px; /* Maior espaço abaixo dos títulos */
+    margin-top: 50px; /* Espaço maior acima dos títulos */
+    color: #4f2502;
+    border-bottom: 2px solid #ddd; /* Linha abaixo do título para separação */
+    padding-bottom: 5px; /* Espaçamento interno no título */
+}
+
+/* Espaçamento geral entre os parágrafos (itens de informação) */
+p {
+    margin-bottom: 15px; /* Espaço entre parágrafos */
+    font-size: 1.1em;
+}
+
+
+.menuButton {
+    width: auto; /* Ajusta a largura ao conteúdo */
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border-radius: 4px; 
+    background-color: #6f4f28; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: 1px solid #6f4f28; /* Borda do botão */
+}
+
+.menuButton:hover {
+    background-color: #8f6b4c; /* Cor mais clara ao passar o mouse */
+    border-color: #8f6b4c;
+}
