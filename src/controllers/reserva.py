@@ -8,6 +8,8 @@ reserva_ns=server.reserva_ns
 
 reservas=[]
 
+
+
 @reserva_ns.route('/reservas-dia')
 class ReservasDia(Resource):
     def get(self):

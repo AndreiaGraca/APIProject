@@ -1,57 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hotel</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/styles.css">
-</head>
-<body onload="showText()">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body onload="showText()">
     <div class="image-container">
-        <div class="image-part left"></div>
-        <div class="image-part right"></div>
+      <div class="image-part left"></div>
+      <div class="image-part right"></div>
     </div>
     <div class="text-container">
-        <div class="container">
-            <img src="{{ url_for('static', filename='image/saudadeHotel.png') }}" alt="Hotel Saudade" class="img-fluid" id="imageLogo">
+      <div class="container">
+        <img
+          src="{{ url_for('static', filename='image/saudadeHotel.png') }}"
+          alt="Hotel Saudade"
+          class="img-fluid"
+          id="imageLogo"
+        />
 
-            <h1 id="TextInitialHeading">Hotel Saudade</h1>
-            <p id="TextInitialParagraph">Área de Funcionários ** Gestão do Hotel</p>
-            <button id="ButtonsBtn" type="button" class="btn btn-brown" data-toggle="button" aria-pressed="false" autocomplete="off" style="font-size: 1.2rem;" onclick="showButtons()">
-                Início
-            </button>
-            <div id="newButtonsContainer" class="mt-3"></div>
-        </div>
+        <h1 id="TextInitialHeading">Hotel Saudade</h1>
+        <p id="TextInitialParagraph">Área de Funcionários ** Gestão do Hotel</p>
+        <button
+          id="ButtonsBtn"
+          type="button"
+          class="btn btn-brown"
+          data-toggle="button"
+          aria-pressed="false"
+          autocomplete="off"
+          style="font-size: 1.2rem"
+          onclick="showButtons()"
+        >
+          Início
+        </button>
+        <div id="newButtonsContainer" class="mt-3"></div>
+      </div>
     </div>
     <div id="popupContainer"></div>
     <script>
-        function showText() {
-            // Primeiro, abrimos a imagem após 2 segundos
-            setTimeout(() => {
-                document.querySelector('.image-container').classList.add('open');
-                // Após 1 segundo da imagem aberta (ou seja, 3 segundos no total), o texto aparece
-                setTimeout(() => {
-                    document.querySelector('.text-container').classList.add('show');
-                }, 1000); // 1000ms (1 segundo) após a abertura da imagem
-            }, 2000); // A imagem abre após 2000ms (2 segundos)
-        }
+      function showText() {
+        // Primeiro, abrimos a imagem após 2 segundos
+        setTimeout(() => {
+          document.querySelector(".image-container").classList.add("open");
+          // Após 1 segundo da imagem aberta (ou seja, 3 segundos no total), o texto aparece
+          setTimeout(() => {
+            document.querySelector(".text-container").classList.add("show");
+          }, 1000); // 1000ms (1 segundo) após a abertura da imagem
+        }, 2000); // A imagem abre após 2000ms (2 segundos)
+      }
 
-        function showButtons() {
-            const heading = document.getElementById('TextInitialHeading');  
-            const paragraph = document.getElementById('TextInitialParagraph');
-            const image = document.getElementById('imageLogo');
-            const btn = document.getElementById('ButtonsBtn');
-            
-            heading.style.display = 'none';
-            paragraph.style.display = 'none';
-            image.style.display = 'none';
-            btn.style.display = 'none';
-            
-            const buttonContainer = document.getElementById('newButtonsContainer');
+      function showButtons() {
+        const heading = document.getElementById("TextInitialHeading");
+        const paragraph = document.getElementById("TextInitialParagraph");
+        const image = document.getElementById("imageLogo");
+        const btn = document.getElementById("ButtonsBtn");
 
-            //       // <button id="ListarQuartos" class="btn btn-primary">Listar Quartos</button>
-            const buttonsHTML = `
+        heading.style.display = "none";
+        paragraph.style.display = "none";
+        image.style.display = "none";
+        btn.style.display = "none";
+
+        const buttonContainer = document.getElementById("newButtonsContainer");
+
+        //       // <button id="ListarQuartos" class="btn btn-primary">Listar Quartos</button>
+        const buttonsHTML = `
                 <button id="AbrirDia" class="btn btn-primary">Abrir Dia</button>
                 <button ID="AreaReservas" class="btn btn-primary">Área de Reservas</button>
                 <button class="btn btn-primary">Análise de Contas</button>
@@ -59,50 +78,50 @@
                 <button class="btn btn-primary">Alterações</button>
                 <button class="btn btn-primary">Informações do Hotel</button>
             `;
-            
-            buttonContainer.innerHTML = buttonsHTML;
 
-            document.getElementById('AreaReservas').addEventListener('click', function() {
-        window.location.href = '/reservas'; // Redireciona para a página desejada
-    });
+        buttonContainer.innerHTML = buttonsHTML;
 
+        document
+          .getElementById("AreaReservas")
+          .addEventListener("click", function () {
+            window.location.href = "/reservas"; // Redireciona para a página desejada
+          });
 
-            document.getElementById('AbrirDia').addEventListener('click', function() {
-                // Esconder todos os botões ao clicar em "Abrir Dia"
-                buttonContainer.innerHTML = '';
-                
-                // Faz a chamada para buscar as reservas do dia
-                fetch('/api/reservas-dia')
-                .then(response => response.json())
-                .then(data => {
-                    displayReservations(data);
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar as reservas:', error);
-                });
-            });
+        document
+          .getElementById("AbrirDia")
+          .addEventListener("click", function () {
+            // Esconder todos os botões ao clicar em "Abrir Dia"
+            buttonContainer.innerHTML = "";
 
-            
+            // Faz a chamada para buscar as reservas do dia
+            fetch("/api/reservas-dia")
+              .then((response) => response.json())
+              .then((data) => {
+                displayReservations(data);
+              })
+              .catch((error) => {
+                console.error("Erro ao buscar as reservas:", error);
+              });
+          });
 
-            // document.getElementById('ListarQuartos').addEventListener('click',function(){
-            //     fetch('/api/quartos')
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         displayReservations(data);
-            //     })
-            //     .catch(error => {
-            //         console.error('Erro ao buscar as reservas:', error);
-            //     });
-            // }
-            
-        }
+        // document.getElementById('ListarQuartos').addEventListener('click',function(){
+        //     fetch('/api/quartos')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         displayReservations(data);
+        //     })
+        //     .catch(error => {
+        //         console.error('Erro ao buscar as reservas:', error);
+        //     });
+        // }
+      }
 
-        function displayReservations(reservations) {
-    const buttonContainer = document.getElementById('newButtonsContainer');
-    const container = document.querySelector('.container'); // Seleciona o container
+      function displayReservations(reservations) {
+        const buttonContainer = document.getElementById("newButtonsContainer");
+        const container = document.querySelector(".container"); // Seleciona o container
 
-    // Gera a tabela de reservas com cabeçalhos
-    let reservationsHTML = `
+        // Gera a tabela de reservas com cabeçalhos
+        let reservationsHTML = `
       <h2 style="color: #693c01; font-weight: bold;">Reservas</h2>
         <div class="reservations-container">
             <table class="reservations-table">
@@ -120,14 +139,16 @@
                 </thead>
                 <tbody>
     `;
-    
-    // Preenche as linhas da tabela com os dados de reserva
-    reservations.forEach(reservation => {
-        const checkInEmoji = reservation[6] ? '✅' : '❌'; // Ajuste o índice conforme a posição do Check-In
 
-        reservationsHTML += `
+        // Preenche as linhas da tabela com os dados de reserva
+        reservations.forEach((reservation) => {
+          const checkInEmoji = reservation[6] ? "✅" : "❌"; // Ajuste o índice conforme a posição do Check-In
+
+          reservationsHTML += `
              <tr data-reservation='${JSON.stringify(reservation)}'>
-                <td style="color: #6f4f28; font-weight: bold;">${reservation[0]}</td>
+                <td style="color: #6f4f28; font-weight: bold;">${
+                  reservation[0]
+                }</td>
                 <td>${reservation[1]}</td>
                 <td>${reservation[2]}</td>
                 <td>${reservation[3]}</td>
@@ -138,68 +159,69 @@
                 
             </tr>
         `;
-    });
-    
-    reservationsHTML += `
+        });
+
+        reservationsHTML += `
                 </tbody>
             </table>
              
         </div>
         <button id="menuButton" class="menuButton" onclick="showButtons()">Menu</button>
-    `;
+        `;
 
-    // Adiciona o conteúdo das reservasao container
-    buttonContainer.innerHTML = reservationsHTML;
+        // Adiciona o conteúdo das reservasao container
+        buttonContainer.innerHTML = reservationsHTML;
 
-    // Adiciona a classe expanded ao container
-    container.classList.add('expanded');
+        // Adiciona a classe expanded ao container
+        container.classList.add("expanded");
 
-    document.querySelectorAll('.reservations-table tbody tr').forEach(row => {
-    row.addEventListener('click', () => {
-        const reservaId = row.cells[1].textContent; // id da reserva (índice 1)
-        console.log("ID da Reserva: ", reservaId);
+        document
+          .querySelectorAll(".reservations-table tbody tr")
+          .forEach((row) => {
+            row.addEventListener("click", () => {
+              const reservaId = row.cells[1].textContent; // id da reserva (índice 1)
+              console.log("ID da Reserva: ", reservaId);
 
-        // Faz a requisição ao endpoint Flask enviando o ID da reserva
-        fetch(`/api/reserva/${reservaId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Reserva não encontrada');
-                }
-                return response.json();
-            })
-            .then(reserva => {
-                console.log("Dados da Reserva: ", reserva); // Verifica os dados recebidos
-                showReservationDetails(reserva); 
-            })
-            .catch(error => {
-                console.error('Erro ao buscar detalhes da reserva:', error);
-                alert('Erro ao buscar detalhes da reserva');
+              // Faz a requisição ao endpoint Flask enviando o ID da reserva
+              fetch(`/api/reserva/${reservaId}`)
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error("Reserva não encontrada");
+                  }
+                  return response.json();
+                })
+                .then((reserva) => {
+                  console.log("Dados da Reserva: ", reserva); // Verifica os dados recebidos
+                  showReservationDetails(reserva);
+                })
+                .catch((error) => {
+                  console.error("Erro ao buscar detalhes da reserva:", error);
+                  alert("Erro ao buscar detalhes da reserva");
+                });
             });
-    });
-});
-}
+          });
+      }
 
-function showReservationDetails(reserva) {
-    
-    function formatDate(dateString) {
-        const date = new Date(dateString); // Cria um objeto Date
-        return date.toDateString(); // Retorna a data no formato "dia da semana, dia mes ano"
-    }
+      function showReservationDetails(reserva) {
+        function formatDate(dateString) {
+          const date = new Date(dateString); // Cria um objeto Date
+          return date.toDateString(); // Retorna a data no formato "dia da semana, dia mes ano"
+        }
 
-    const checkInFormatted = formatDate(reserva[5]);
-    const checkOutFormatted = formatDate(reserva[6]);
-    
-    const hydromassageEmoji = reserva[16] ? '✅' : '❌'; 
-    const noiteRomanticaEmoji = reserva[17] ?'✅' : '❌';
-    const checkInFeitoEmoji = reserva[20] ? '✅' : '❌';
-    const checkOutFeitoEmoji = reserva[21] ? '✅' : '❌';
-    const ocupadoEmoji = reserva[24] ? '✅' : '❌';
-    const limpoEmoji = reserva[27] ? '✅' : '❌';
-    const canceladoEmoji = reserva[28] ? '✅' : '❌';
+        const checkInFormatted = formatDate(reserva[5]);
+        const checkOutFormatted = formatDate(reserva[6]);
 
-    const reservationDateFormatted = formatDate(reserva[23]);
+        const hydromassageEmoji = reserva[16] ? "✅" : "❌";
+        const noiteRomanticaEmoji = reserva[17] ? "✅" : "❌";
+        const checkInFeitoEmoji = reserva[20] ? "✅" : "❌";
+        const checkOutFeitoEmoji = reserva[21] ? "✅" : "❌";
+        const ocupadoEmoji = reserva[24] ? "✅" : "❌";
+        const limpoEmoji = reserva[27] ? "✅" : "❌";
+        const canceladoEmoji = reserva[28] ? "✅" : "❌";
 
-let reservaDetailsHTML = `
+        const reservationDateFormatted = formatDate(reserva[23]);
+
+        let reservaDetailsHTML = `
 <div class="modal">
     <div class="modal-content">
         <span class="close-button">&times;</span>
@@ -252,30 +274,41 @@ let reservaDetailsHTML = `
 </div>
 `;
 
+        document.getElementById("popupContainer").innerHTML =
+          reservaDetailsHTML;
 
-    document.getElementById('popupContainer').innerHTML = reservaDetailsHTML;
+        // Mostrar o modal
+        const modal = document.querySelector(".modal");
+        modal.style.display = "flex"; // Usar flex para centralizar
 
-    // Mostrar o modal
-    const modal = document.querySelector('.modal');
-    modal.style.display = 'flex'; // Usar flex para centralizar
+        document
+          .querySelector(".close-button")
+          .addEventListener("click", function () {
+            modal.style.display = "none"; // Esconder o modal ao clicar
+          });
 
-    document.querySelector('.close-button').addEventListener('click', function() {
-        modal.style.display = 'none'; // Esconder o modal ao clicar
-    });
-
-    //fechar o modal se se clicar fora deste
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-}
-
-
+        //fechar o modal se se clicar fora deste
+        window.addEventListener("click", function (event) {
+          if (event.target === modal) {
+            modal.style.display = "none";
+          }
+        });
+      }
     </script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7Hfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-</body>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7Hfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

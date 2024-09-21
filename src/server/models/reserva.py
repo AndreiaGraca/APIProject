@@ -60,6 +60,53 @@ def get_daily_reservations():
         print(f"Erro ao conectar ao PostgreSQL: {e}")
         return []
 
+
+def get_reserva_by_id_change_bd(reserva_id,value):
+    try:
+        # Conexão com o banco de dados
+        conn = psycopg2.connect(
+            dbname="postgres",
+            user="postgres",
+            password="andreia",
+            host="localhost",
+            port="5432"
+        )
+        
+        cursor = conn.cursor()
+
+        if(value==0):
+           # Query de atualização
+            sql = """
+            UPDATE reserve
+            SET check_in_made = true
+            WHERE reserva_id = %s
+            """
+
+            # Executa a query
+            cursor.execute(sql, (reserva_id,)) 
+        elif (value==1):
+            sql = """
+            UPDATE reserve
+            SET check_out_made = true
+            WHERE reserva_id = %s
+            """
+
+            # Executa a query
+            cursor.execute(sql, (reserva_id,)) 
+        
+        conn.commit()  # Confirma a transação
+
+        # Fecha a conexão
+        cursor.close()
+        conn.close()
+
+        # Retorna uma mensagem de sucesso ou nenhum valor
+        return "Reserva atualizada com sucesso."
+    
+    except Exception as e:
+        print(f"Erro ao conectar ao PostgreSQL: {e}")
+        return None
+
 def get_reserva_by_id(reserva_id):
     try:
         conn = psycopg2.connect(

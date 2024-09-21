@@ -2,7 +2,7 @@ from flask import Flask, jsonify, render_template, request
 from flask_restx import Api, Namespace, Resource
 from src.server.instance import server
 from src.server.models.hotel import hotel
-from src.server.models.reserva import get_daily_reservations, get_reserva_by_id
+from src.server.models.reserva import get_daily_reservations, get_reserva_by_id, get_reserva_by_id_change_bd
 
 app, api = server.app, server.api
 
@@ -18,11 +18,6 @@ quartos_db = [
     {'number': 9, 'capacity': "8", 'balcony':'true', 'clean': 'true', 'hydromassage':'true'},
     {'number': 10, 'capacity': "8", 'balcony':'true', 'clean': 'true', 'hydromassage':'true'},
 ]
-
-
-# @app.route('/start')
-# def index():
-#     return render_template('index.html')
 
 hotel_ns = server.hotel_ns
 
@@ -92,3 +87,11 @@ class HotelList(Resource):
             return jsonify(reserva)
         else:
             return jsonify({'error': 'Reserva não encontrada'}), 404
+        
+    @app.route('/api/reserva/check/<int:reserva_id>', methods=['POST'])
+    #para o check_in e o check_out apenas muda o valor 0/1 respetivamente
+    def check(reserva_id):
+        value = request.args.get('value', default=0, type=int) 
+
+        reserva = get_reserva_by_id_change_bd(reserva_id, value)
+        return jsonify(success=True), 200
