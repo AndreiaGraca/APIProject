@@ -50,10 +50,10 @@
             
             const buttonContainer = document.getElementById('newButtonsContainer');
 
+            //       // <button id="ListarQuartos" class="btn btn-primary">Listar Quartos</button>
             const buttonsHTML = `
                 <button id="AbrirDia" class="btn btn-primary">Abrir Dia</button>
-                <button class="btn btn-primary">Listar Quartos</button>
-                <button class="btn btn-primary">Área de Reservas</button>
+                <button ID="AreaReservas" class="btn btn-primary">Área de Reservas</button>
                 <button class="btn btn-primary">Análise de Contas</button>
                 <button class="btn btn-primary">Fechar Dia</button>
                 <button class="btn btn-primary">Alterações</button>
@@ -61,6 +61,11 @@
             `;
             
             buttonContainer.innerHTML = buttonsHTML;
+
+            document.getElementById('AreaReservas').addEventListener('click', function() {
+        window.location.href = '/reservas'; // Redireciona para a página desejada
+    });
+
 
             document.getElementById('AbrirDia').addEventListener('click', function() {
                 // Esconder todos os botões ao clicar em "Abrir Dia"
@@ -76,6 +81,20 @@
                     console.error('Erro ao buscar as reservas:', error);
                 });
             });
+
+            
+
+            // document.getElementById('ListarQuartos').addEventListener('click',function(){
+            //     fetch('/api/quartos')
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         displayReservations(data);
+            //     })
+            //     .catch(error => {
+            //         console.error('Erro ao buscar as reservas:', error);
+            //     });
+            // }
+            
         }
 
         function displayReservations(reservations) {
@@ -126,7 +145,7 @@
             </table>
              
         </div>
-        <button id="menuButton" class="menuButton">Menu</button>
+        <button id="menuButton" class="menuButton" onclick="showButtons()">Menu</button>
     `;
 
     // Adiciona o conteúdo das reservasao container

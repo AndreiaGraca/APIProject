@@ -1,13 +1,19 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 from flask_restx import Api, Namespace, Resource
 from src.server.instance import server
-from src.server.models.reserva import reserva
+from src.server.models.reserva import get_daily_reservations, reserva
 from datetime import datetime 
 app, api = server.app, server.api
 reserva_ns=server.reserva_ns
 
 reservas=[]
 
+@reserva_ns.route('/reservas-dia')
+class ReservasDia(Resource):
+    def get(self):
+        reservas = get_daily_reservations()
+        return jsonify(reservas)
+    
 @reserva_ns.route('/reserva')
 class ReservasList(Resource):
     @reserva_ns.marshal_list_with(reserva) #formata a saída com base num modelo Reserva

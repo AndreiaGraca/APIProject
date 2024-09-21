@@ -20,9 +20,9 @@ quartos_db = [
 ]
 
 
-@app.route('/start')
-def index():
-    return render_template('index.html')
+# @app.route('/start')
+# def index():
+#     return render_template('index.html')
 
 hotel_ns = server.hotel_ns
 
@@ -85,8 +85,6 @@ class HotelList(Resource):
         reservas = get_daily_reservations()
         return jsonify(reservas)
     
-
-
     @app.route('/api/reserva/<int:reserva_id>', methods=['GET'])
     def reserva(reserva_id):
         reserva = get_reserva_by_id(reserva_id)

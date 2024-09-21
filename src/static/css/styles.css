@@ -127,13 +127,13 @@ border-color: #8f6b4c; /* Cor da borda no hover */
     margin: 10px 0; /* Espaço vertical entre os botões */
     width: 44%;/* Largura dos botões */
     background-color: #7b7974; /* #916e4c*/
-    border-color: #ac9d8b; 
+    border-color: #7b7974; 
     color: #fff;
     font-weight: bold;
 }
 
 #newButtonsContainer button:hover {
-    background-color: #a28e75; /* Cor mais clara ao passar o rato */
+    background-color: #b5b1ac; /* Cor mais clara ao passar o rato */
 }
 
 .reservations-container {
@@ -197,15 +197,18 @@ border-color: #8f6b4c; /* Cor da borda no hover */
 }
 
 .modal-content {
-    background-color: #f4f5de; 
+    background-color: #f5f5f5; /*#f4f5de*/
     padding: 10px;
     border: 1px solid #888;
     width: 80%; 
-    max-width: 600px; /* Largura máxima do modal */
+    max-width: 1000px; /* Largura máxima do modal */
     max-height: 80vh; /* Altura máxima do modal (80% da altura da janela) */
     overflow-y: auto; /* Permite scroll vertical s*/
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra  */
     border-radius: 8px; /* Bordas arredondadas */
+    overflow-y: scroll; 
+    scrollbar-width: thin; 
+    scrollbar-color: #f0f0f0 transparent; 
 }
 
 /* Estilo do botão de fechar (X) */
