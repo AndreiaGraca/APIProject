@@ -25,18 +25,17 @@
     </div>
     <div id="formReserva" style="display: none">
       <div id="formulario">
-        <h3>Nova Reserva</h3>
+        <h3>Nova Reserva</h3><br>
         <form id="reserva-form" >
           <label for="quarto">Quarto: </label>
           <select id="roomNumberId" name="roomNumber" disabled>
-            <option value="">Selecione um quarto</option>
-          </select>
-          <input
+          </select><br><br>
+          <!-- <input
             type="number"
             id="quarto"
             name="roomNumber"
             disabled
-          /><br /><br />
+          /><br /><br /> -->
 
           <label for="CheckIn">CheckIn: </label>
           <input type="date" id="CheckIn" onchange="validarCheckIn()" required /><br /><br />
@@ -117,14 +116,16 @@
 
           <label for="email">Email:</label>
           <input type="text" id="email" name="email" required /><br /><br />
-
+          
           <label for="Romantica">Noite Romântica:</label>
           <select name="Romantica" id="Romantica" required>
             <option value="Y">Sim</option>
             <option value="N">Não</option></select
           ><br /><br /> -->
         </form>
-       <button disabled id="buttonReservar" onclick="reservar()">Reservar </button>
+        <label>Price per Night: </label>
+        <br><label>Total Price: </label>
+       <button disabled id="buttonReservar" onclick="reservar() ">Reservar </button>
       </div>
     </div>
     <script src="/static/js/reservas.js"></script>

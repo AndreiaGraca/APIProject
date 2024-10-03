@@ -102,7 +102,48 @@ html, body {
     width: 8px;
 }
 
-#formulario{
-    z-index: 1;
-    position: relative;
+        
+
+
+
+#formReserva {
+    display: flex; /* Usando Flexbox */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 100vh; /* Preenche a altura total da tela */
+    position: absolute; /* Permite que o contêiner ocupe toda a tela */
+    width: 100%; /* Largura total */
+    z-index: 3; /* Acima da imagem de fundo */
+}
+
+#formulario {
+    background-color: rgba(255,255,255,0.85); /* Cor de fundo do formulário */
+    border: 1px solid #ccc; /* Borda do formulário */
+    border-radius: 8px; /* Bordas arredondadas */
+    padding: 20px; /* Espaçamento*/
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra do formulário */
+    width: 400px; /* Largura do formulário */
+    max-width: 90%; /* Largura máxima  */
+    margin: 15px auto; /* Centralizar o formulário horizontalmente */
+}
+
+h3 {
+    text-align: center; 
+}
+
+
+#buttonReservar {
+    display: block; 
+    margin: 20px auto 0; 
+    padding: 10px 20px; 
+    background-color: #715d4d; 
+    color: white; /* Cor do texto */
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer; 
+}
+
+#buttonReservar:disabled {
+    background-color: #ccc; /* Cor do botão quando desativado */
+    cursor: not-allowed;
 }
