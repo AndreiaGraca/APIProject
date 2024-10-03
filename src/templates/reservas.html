@@ -11,7 +11,6 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/static/css/styles1.css" />
-
   </head>
   <body>
     <div class="image-container"></div>
@@ -24,8 +23,110 @@
       <button class="btn btn-primary">Listar Reservas</button>
       <button id="menu" class="btn btn-primary" href="/index">Menu</button>
     </div>
+    <div id="formReserva" style="display: none">
+      <div id="formulario">
+        <h3>Nova Reserva</h3>
+        <form id="reserva-form" >
+          <label for="quarto">Quarto: </label>
+          <select id="roomNumberId" name="roomNumber" disabled>
+            <option value="">Selecione um quarto</option>
+          </select>
+          <input
+            type="number"
+            id="quarto"
+            name="roomNumber"
+            disabled
+          /><br /><br />
+
+          <label for="CheckIn">CheckIn: </label>
+          <input type="date" id="CheckIn" onchange="validarCheckIn()" required /><br /><br />
+
+          <label for="CheckOut">CheckOut: </label>
+          <input
+            type="date"
+            id="CheckOut"
+            name="checkOut"
+            required
+            onchange="validarCheckOut()"
+          /><br /><br />
+
+          <!-- <label for="roomType">Choose a type:</label>
+          <select name="type" id="roomType" required>
+            <option value="SINGLE">SINGLE</option>
+            <option value="COUPLE">COUPLE</option>
+            <option value="DOUBLE">DOUBLE</option>
+            <option value="SUITE">SUITE</option></select
+          ><br /><br /> -->
+
+          <label for="quantity">Quantidade de Pessoas:</label>
+          <input
+            type="number"
+            id="quantity"
+            placeholder="1"
+            min="1"
+            required
+          /><br /><br />
+
+          <label for="adults">Adultos</label>
+          <input
+            type="number"
+            id="adults"
+            name="Adults"
+            placeholder="0"
+            min="0"
+            required
+          /><br /><br />
+
+          <label for="children">Crianças:</label>
+          <input
+            type="number"
+            id="children"
+            name="Children"
+            placeholder="0"
+            min="0"
+            required
+          /><br /><br />
+
+          <label for="animals">Animais:</label>
+          <input
+            type="number"
+            id="animals"
+            name="Animals"
+            placeholder="0"
+            min="0"
+            required
+          /><br /><br />
+
+          <label for=" balcony">Balcony:</label>
+          <select name="balcony" id="balcony" required>
+            <option value="True">Sim</option>
+            <option value="False">Não</option></select
+          ><br /><br />
+
+          <label for="Hidromassagem">Hidromassagem:</label>
+          <select name="Hidromassagem" id="Hidromassagem" required>
+            <option value="True">Sim</option>
+            <option value="False">Não</option></select
+          ><br /><br />
+
+          <!-- <label for="name">Nome:</label>
+          <input type="text" id="name" name="name" required /><br /><br />
+
+          <label for="nif">NIF:</label>
+          <input type="number" id="nif" name="name" required /><br /><br />
+
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email" required /><br /><br />
+
+          <label for="Romantica">Noite Romântica:</label>
+          <select name="Romantica" id="Romantica" required>
+            <option value="Y">Sim</option>
+            <option value="N">Não</option></select
+          ><br /><br /> -->
+        </form>
+       <button disabled id="buttonReservar" onclick="reservar()">Reservar </button>
+      </div>
+    </div>
     <script src="/static/js/reservas.js"></script>
   </body>
-
-
 </html>
